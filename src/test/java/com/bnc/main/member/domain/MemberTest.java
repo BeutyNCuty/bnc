@@ -3,9 +3,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+
+import static com.bnc.main.member.domain.memberStatus.DELETED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-
 
 class MemberTest {
 
@@ -69,5 +70,67 @@ class MemberTest {
         String phoneNumber = " ";
 
         assertThatIllegalArgumentException().isThrownBy(() -> new Member("abcde", "1234", "addr", phoneNumber));
+    }
+
+    @Test
+    void 정보_변경_성공() {
+       final Member member = new Member( "1", "addr", "01052587376");
+
+       member.change("2", "aaa", "ffff");
+
+       assertThat(member.getPassword()).isEqualTo("2");
+       assertThat(member.getAddr()).isEqualTo("aaa");
+       assertThat(member.getPhone()).isEqualTo("ffff");
+    }
+
+    @Test
+    void 정보_삭제_성공() {
+        final Member member = new Member("1", "addr", "01052587376");
+
+        member.delete();
+
+        assertThat(member.getMemberStatus()).isEqualTo(DELETED);
+    }
+
+    @Test
+    void 비밀번호_변경_성공(){
+        final Member member = new Member( "1", "addr", "01052587376");
+
+        member.changePassword("2");
+
+        assertThat(member.getPassword()).isEqualTo("2");
+    }
+
+    @Test
+    void 비밀번호_변경_실패(){
+        final Member member = new Member( "1", "addr", "01052587376");
+
+        member.changePassword("2");
+
+        assertThat(member.getPassword()).isNotEqualTo("2");
+    }
+
+    @Test
+    void 등급_Gold(){
+       final Member member = new Member();
+       member.checkGrade(510000);
+
+       assertThat(member.getGrade()).isEqualTo("Gold");
+    }
+
+    @Test
+    void 등급_Silver(){
+        final Member member = new Member();
+        member.checkGrade(210000);
+
+        assertThat(member.getGrade()).isEqualTo("Silver");
+    }
+
+    @Test
+    void 등급_Bronze(){
+        final Member member = new Member();
+        member.checkGrade(100000);
+
+        assertThat(member.getGrade()).isEqualTo("Bronze");
     }
 }
