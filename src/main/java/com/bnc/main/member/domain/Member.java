@@ -23,7 +23,6 @@ public class Member extends BaseEntity{
     private String password;
     private String addr;
     private String phone;
-
     private OffsetDateTime creatAt = OffsetDateTime.now();
 
     public Member(String userId, String password, String addr, String phone) {

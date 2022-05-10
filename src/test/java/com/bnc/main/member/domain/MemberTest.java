@@ -13,7 +13,6 @@ class MemberTest {
     void 멤버_생성_성공(){
         final Member member = new Member("goyounha11", "1", "부평구","01051431509");
 
- //     assertThat(member.getId()).isNotNull();
         assertThat(member.getUserId()).isEqualTo("goyounha11");
         assertThat(member.getPassword()).isEqualTo("1");
         assertThat(member.getAddr()).isEqualTo("부평구");
@@ -29,6 +28,7 @@ class MemberTest {
     @Test
     void 아이디가_공백이면_실패() {
         String userId = "  ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Member(userId, "1", "부평구","01051431509"));
     }
 
@@ -41,6 +41,7 @@ class MemberTest {
     @Test
     void 비밀번호가_공백이면_실패(){
         String password = " ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Member("1", password , "부평구","010-123-123"));
     }
 
@@ -53,6 +54,7 @@ class MemberTest {
     @Test
     void 주소가_공백이면_실패(){
         String addr = " ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Member("fghi", "12345",addr,"01012345678"));
     }
 
@@ -65,7 +67,7 @@ class MemberTest {
     @Test
     void 폰번호가_공백이면_실패(){
         String phoneNumber = " ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Member("abcde", "1234", "addr", phoneNumber));
     }
-
 }
