@@ -1,21 +1,20 @@
 package com.bnc.main.product.domain;
 
+import com.bnc.main.support.BaseEntity;
 import com.google.common.base.Preconditions;
-import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.logging.log4j.util.Strings;
-import org.hibernate.annotations.Check;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     private String name;
     private int price;
