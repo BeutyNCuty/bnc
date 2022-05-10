@@ -9,10 +9,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ProductTest {
+    final static Product product = new Product("옷", 123, "구찌");
 
     @Test
     void 상품_생성_성공() {
-        final Product product = new Product("옷", 123, "구찌");
         assertThat(product.getName()).isEqualTo("옷");
         assertThat(product.getPrice()).isEqualTo(123);
         assertThat(product.getBrand()).isEqualTo("구찌");
@@ -47,4 +47,5 @@ class ProductTest {
         Product product = new Product();
         assertThat(product.getPrice()).isEqualTo(0);
     }
+    
 }
