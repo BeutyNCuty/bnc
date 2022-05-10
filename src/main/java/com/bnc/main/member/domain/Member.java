@@ -1,16 +1,13 @@
 package com.bnc.main.member.domain;
 
-import com.google.common.base.Preconditions;
+import com.bnc.main.support.BaseEntity;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.OffsetDateTime;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -18,7 +15,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
     private String userId;
     private String password;
     private String addr;
