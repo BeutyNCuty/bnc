@@ -1,15 +1,15 @@
 package com.bnc.main.product.domain;
 
 import com.bnc.main.support.BaseEntity;
-import com.google.common.base.Preconditions;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.apache.logging.log4j.util.Strings;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import static com.google.common.base.Preconditions.*;
 
 @Entity
 @Getter

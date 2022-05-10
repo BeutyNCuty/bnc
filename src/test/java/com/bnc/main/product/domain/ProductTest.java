@@ -25,6 +25,7 @@ class ProductTest {
     @Test
     void 상품_이름이_공백이면_실패(){
         String name = "    ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Product(name, 123, "구찌"));
     }
 
@@ -37,13 +38,28 @@ class ProductTest {
     @Test
     void 상품_브랜드가_공백이면_실패(){
         String brand = "    ";
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Product("옷", 123, brand));
     }
 
     @Test
-    void 상품_기본가격이_0원이면_성공(){
-        Product product = new Product();
-        assertThat(product.getPrice()).isEqualTo(0);
+    void 상품_변경_성공(){
+        final Product product = new Product("옷",123,"구찌");
+
+        product.change("가방",1233,"디올");
+
+        assertThat(product.getName()).isEqualTo("가방");
+        assertThat(product.getPrice()).isEqualTo(1233);
+        assertThat(product.getBrand()).isEqualTo("디올");
+    }
+
+    @Test
+    void 상품_삭제_성공() {
+        final Product product = new Product("옷", 123, "구찌");
+
+        product.delete();
+
+        assertThat(product.getProductStatus()).isEqualTo(DELETED);
     }
 
 }
