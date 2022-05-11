@@ -26,4 +26,30 @@ class DefaultProductServiceTest extends BaseServiceTest {
 
         assertThat(foundProduct).isEqualTo(product);
     }
+
+    @Test
+    void 상품_삭제_성공() {
+        Product product = new Product("옷", 123, "구찌");
+
+        product = productService.create(product);
+
+        productService.delete(product);
+    }
+
+    @Test
+    void 상품_수정_성공() {
+        Product product = new Product("옷", 123, "구찌");
+
+        product = productService.create(product);
+
+        Product params = new Product("바지", 123, "프라다");
+
+        productService.update(product.getId(), params);
+
+        Product foundProduct = productRepository.findById(product.getId()).orElseThrow();
+
+        assertThat(foundProduct.getName()).isEqualTo("바지");
+        assertThat(foundProduct.getPrice()).isEqualTo(123);
+        assertThat(foundProduct.getBrand()).isEqualTo("프라다");
+    }
 }

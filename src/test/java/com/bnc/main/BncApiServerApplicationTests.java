@@ -9,5 +9,4 @@ class BncApiServerApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
