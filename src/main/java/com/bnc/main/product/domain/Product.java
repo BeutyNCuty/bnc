@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

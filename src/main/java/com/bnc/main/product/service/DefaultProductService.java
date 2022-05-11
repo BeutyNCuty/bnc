@@ -17,4 +17,18 @@ public class DefaultProductService implements ProductService {
     public Product create(Product product) {
         return productRepository.save(product);
     }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
+
+    @Override
+    public Long update(Long id, Product prams) {
+        Product product = productRepository.findById(id).orElseThrow();
+
+        product.change(prams.getName(), prams.getPrice(), prams.getBrand());
+
+        return id;
+    }
 }
