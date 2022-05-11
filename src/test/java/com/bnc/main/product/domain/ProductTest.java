@@ -3,10 +3,16 @@ package com.bnc.main.product.domain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ProductTest {
+
+    @Autowired
+    private ProductRepository productRepository;
+
     final static Product product = new Product("옷", 123, "구찌");
 
     @Test
@@ -14,6 +20,7 @@ class ProductTest {
         assertThat(product.getName()).isEqualTo("옷");
         assertThat(product.getPrice()).isEqualTo(123);
         assertThat(product.getBrand()).isEqualTo("구찌");
+        assertThat(product.getProductStatus()).isEqualTo(ProductStatus.CREATED);
     }
 
     @ParameterizedTest
@@ -59,7 +66,6 @@ class ProductTest {
 
         product.delete();
 
-        assertThat(product.getProductStatus()).isEqualTo(DELETED);
+        assertThat(product.getProductStatus()).isEqualTo(ProductStatus.DELETED);
     }
-
 }
