@@ -51,9 +51,7 @@ class ProductTest {
 
         product.change("가방",1233,"디올");
 
-        assertThat(product.getName()).isEqualTo("가방");
-        assertThat(product.getPrice()).isEqualTo(1233);
-        assertThat(product.getBrand()).isEqualTo("디올");
+        assertThat(product).isEqualTo(new Product("가방", 1233, "디올"));
     }
 
     @Test

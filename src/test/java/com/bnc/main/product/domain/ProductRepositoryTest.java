@@ -22,13 +22,4 @@ class ProductRepositoryTest {
 
         assertThat(foundProduct).isEqualTo(product);
     }
-
-    @Test
-    void 상품_삭제_성공() {
-        Product product = new Product("옷", 123, "구찌");
-
-        product = productRepository.save(product);
-
-        productRepository.delete(product);
-    }
 }
