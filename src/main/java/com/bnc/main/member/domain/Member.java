@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.OffsetDateTime;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -20,9 +19,16 @@ public class Member extends BaseEntity {
     private String password;
     private String addr;
     private String phone;
+    private String grade;
+    private long totalPrice;
     private OffsetDateTime creatAt = OffsetDateTime.now();
+    private memberStatus memberStatus;
 
-    public Member(String userId, String password, String addr, String phone) {
+
+
+
+
+    public Member(String userId, String password, String addr, String phone , long totalPrice) {
         checkArgument(Strings.isNotBlank(userId));
         checkArgument(Strings.isNotBlank(password));
         checkArgument(Strings.isNotBlank(addr));
@@ -31,6 +37,8 @@ public class Member extends BaseEntity {
         this.userId = userId;
         this.password = password;
         this.addr = addr;
+        this.phone = phone;
+        this.totalPrice = totalPrice;
     }
 
     public void change(String password, String addr, String phone){
@@ -53,7 +61,8 @@ public class Member extends BaseEntity {
         this.memberStatus = memberStatus.DELETED;
     }
 
-    public void checkGrade(int price){
+    public void checkGrade(long price){
+
         if(price >= 0 && price < 200000){
             this.grade = "Bronze";
         }

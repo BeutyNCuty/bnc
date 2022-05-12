@@ -1,5 +1,5 @@
 package com.bnc.main.member.domain;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -115,7 +115,7 @@ class MemberTest {
        final Member member = new Member();
        member.checkGrade(510000);
 
-       assertThat(member.getGrade()).isEqualTo("Gold");
+       assertThat(member.getGrade()).isEqualTo(Grade.Gold.toString());
     }
 
     @Test
