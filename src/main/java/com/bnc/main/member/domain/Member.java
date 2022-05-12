@@ -16,12 +16,19 @@ import static com.google.common.base.Preconditions.checkArgument;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
     private String userId;
+
     private String password;
+
     private String addr;
+
     private String phone;
+
     private String grade;
+
     private long totalPrice;
+
     private OffsetDateTime creatAt = OffsetDateTime.now();
+
     private memberStatus memberStatus;
 
 
