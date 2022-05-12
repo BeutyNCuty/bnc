@@ -31,6 +31,37 @@ public class Member extends BaseEntity {
         this.userId = userId;
         this.password = password;
         this.addr = addr;
+    }
+
+    public void change(String password, String addr, String phone){
+        this.password = password;
+        this.addr = addr;
         this.phone = phone;
+    }
+
+    public Member(String password, String addr, String phone) {
+        this.password = password;
+        this.addr = addr;
+        this.phone = phone;
+    }
+
+    public void changePassword(String password){
+        this.password = password;
+    }
+
+    public void delete(){
+        this.memberStatus = memberStatus.DELETED;
+    }
+
+    public void checkGrade(int price){
+        if(price >= 0 && price < 200000){
+            this.grade = "Bronze";
+        }
+        else if(price >= 200000 && price <= 500000){
+            this.grade = "Silver";
+        }
+        else {
+            this.grade = "Gold";
+        }
     }
 }
