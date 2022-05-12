@@ -1,12 +1,13 @@
 package com.bnc.main.member.domain;
 
-import com.bnc.main.support.BaseEntity;
+import com.bnc.main.member.domain.Grade;
+import com.bnc.main.member.domain.memberStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -14,18 +15,29 @@ import static com.google.common.base.Preconditions.checkArgument;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name="uq_user_Id",columnNames="user_Id")
+        }
+)
+public class Member {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, name = "user_Id")
     private String userId;
     private String password;
     private String addr;
     private String phone;
+
     private String grade;
     private long totalPrice;
+
     private OffsetDateTime creatAt = OffsetDateTime.now();
-    private memberStatus memberStatus;
-
-
-
+    private memberStatus memberStatus= com.bnc.main.member.domain.memberStatus.CREATED;
 
 
     public Member(String userId, String password, String addr, String phone , long totalPrice) {
@@ -39,13 +51,6 @@ public class Member extends BaseEntity {
         this.addr = addr;
         this.phone = phone;
         this.totalPrice = totalPrice;
-    }
-
-    public Member(String userId, String password, String addr, String phone) {
-        this.userId = userId;
-        this.password = password;
-        this.addr = addr;
-        this.phone = phone;
     }
 
     public void change(String password, String addr, String phone){
@@ -69,7 +74,6 @@ public class Member extends BaseEntity {
 
         this.password = password;
     }
-
 
     public void delete(){
         this.memberStatus = memberStatus.DELETED;
