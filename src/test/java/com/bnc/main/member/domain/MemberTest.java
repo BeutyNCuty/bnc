@@ -1,5 +1,5 @@
 package com.bnc.main.member.domain;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -102,35 +102,43 @@ class MemberTest {
     }
 
     @Test
-    void 비밀번호_변경_실패(){
+    void 비밀번호_공백이면_변경_실패(){
         final Member member = new Member( "1", "addr", "01052587376");
 
-        member.changePassword("2");
+        assertThatIllegalArgumentException().isThrownBy(() -> member.changePassword(" "));
+    }
 
-        assertThat(member.getPassword()).isNotEqualTo("2");
+    @ParameterizedTest
+    @NullAndEmptySource
+    void 비밀번호가_null값이거나_빈값이면_변경_실패(String password){
+        final Member member = new Member( password, "addr", "01052587376");
+
+        assertThatIllegalArgumentException().isThrownBy(() -> member.changePassword(member.getPassword()));
     }
 
     @Test
     void 등급_Gold(){
-       final Member member = new Member();
-       member.checkGrade(510000);
+       final Member member = new Member("1", "addr", "주소" , "010-23123-123123",510000);
+       member.checkGrade(member.getTotalPrice());
 
-       assertThat(member.getGrade()).isEqualTo("Gold");
+       assertThat(member.getGrade()).isEqualTo(Grade.Gold.toString());
     }
 
     @Test
     void 등급_Silver(){
-        final Member member = new Member();
-        member.checkGrade(210000);
+        final Member member = new Member("1", "addr", "주소" , "010-23123-123123",240000);
 
-        assertThat(member.getGrade()).isEqualTo("Silver");
+        member.checkGrade(member.getTotalPrice());
+
+        assertThat(member.getGrade()).isEqualTo(Grade.Silver.toString());
     }
 
     @Test
     void 등급_Bronze(){
-        final Member member = new Member();
-        member.checkGrade(100000);
+        final Member member = new Member("1", "addr", "주소" , "010-23123-123123",140000);
 
-        assertThat(member.getGrade()).isEqualTo("Bronze");
+        member.checkGrade(member.getTotalPrice());
+
+        assertThat(member.getGrade()).isEqualTo(Grade.Bronze.toString());
     }
 }
