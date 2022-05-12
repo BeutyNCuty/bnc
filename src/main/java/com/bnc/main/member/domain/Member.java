@@ -41,7 +41,18 @@ public class Member extends BaseEntity {
         this.totalPrice = totalPrice;
     }
 
+    public Member(String userId, String password, String addr, String phone) {
+        this.userId = userId;
+        this.password = password;
+        this.addr = addr;
+        this.phone = phone;
+    }
+
     public void change(String password, String addr, String phone){
+        checkArgument(Strings.isNotBlank(password));
+        checkArgument(Strings.isNotBlank(addr));
+        checkArgument(Strings.isNotBlank(phone));
+
         this.password = password;
         this.addr = addr;
         this.phone = phone;
@@ -54,8 +65,11 @@ public class Member extends BaseEntity {
     }
 
     public void changePassword(String password){
+        checkArgument(Strings.isNotBlank(password));
+
         this.password = password;
     }
+
 
     public void delete(){
         this.memberStatus = memberStatus.DELETED;
@@ -64,13 +78,11 @@ public class Member extends BaseEntity {
     public void checkGrade(long price){
 
         if(price >= 0 && price < 200000){
-            this.grade = "Bronze";
-        }
-        else if(price >= 200000 && price <= 500000){
-            this.grade = "Silver";
-        }
-        else {
-            this.grade = "Gold";
+            this.grade = Grade.Bronze.toString();
+        }else if(price >= 200000 && price <= 500000){
+            this.grade = Grade.Silver.toString();
+        }else{
+            this.grade = Grade.Gold.toString();
         }
     }
 }
