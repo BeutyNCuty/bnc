@@ -47,11 +47,13 @@ class ProductTest {
 
     @Test
     void 상품_변경_성공(){
-        final Product product = new Product("옷",123,"구찌");
+        final Product product = new Product("옷", 123, "구찌");
 
-        product.change("가방",1233,"디올");
+        product.change("가방", 1233, "디올");
 
-        assertThat(product).isEqualTo(new Product("가방", 1233, "디올"));
+        assertThat(product.getName()).isEqualTo("가방");
+        assertThat(product.getPrice()).isEqualTo(1233);
+        assertThat(product.getBrand()).isEqualTo("디올");
     }
 
     @Test
