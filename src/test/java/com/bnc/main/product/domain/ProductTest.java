@@ -3,15 +3,11 @@ package com.bnc.main.product.domain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ProductTest {
-
-    @Autowired
-    private ProductRepository productRepository;
 
     final static Product product = new Product("옷", 123, "구찌");
 
@@ -55,9 +51,7 @@ class ProductTest {
 
         product.change("가방",1233,"디올");
 
-        assertThat(product.getName()).isEqualTo("가방");
-        assertThat(product.getPrice()).isEqualTo(1233);
-        assertThat(product.getBrand()).isEqualTo("디올");
+        assertThat(product).isEqualTo(new Product("가방", 1233, "디올"));
     }
 
     @Test
