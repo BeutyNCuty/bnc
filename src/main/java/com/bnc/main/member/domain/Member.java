@@ -15,15 +15,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(name="uq_user_Id",columnNames="user_Id")
         }
 )
+
 public class Member {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +36,6 @@ public class Member {
 
     private OffsetDateTime creatAt = OffsetDateTime.now();
     private memberStatus memberStatus= com.bnc.main.member.domain.memberStatus.CREATED;
-
 
     public Member(String userId, String password, String addr, String phone , long totalPrice) {
         checkArgument(Strings.isNotBlank(userId));
