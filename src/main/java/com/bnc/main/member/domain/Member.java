@@ -67,8 +67,6 @@ public class Member {
         this.password = password;
     }
 
-
-
     public void delete(){
         this.memberStatus = memberStatus.DELETED;
     }
@@ -83,6 +81,4 @@ public class Member {
             this.grade = Grade.Gold;
         }
     }
-
-
 }
