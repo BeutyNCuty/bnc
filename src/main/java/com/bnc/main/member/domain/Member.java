@@ -1,10 +1,6 @@
 package com.bnc.main.member.domain;
 
-import com.bnc.main.member.domain.Grade;
-import com.bnc.main.member.domain.memberStatus;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
@@ -20,7 +16,6 @@ import static com.google.common.base.Preconditions.checkArgument;
                 @UniqueConstraint(name="uq_user_Id",columnNames="user_Id")
         }
 )
-
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +26,7 @@ public class Member {
     private String addr;
     private String phone;
 
-    private String grade;
+    private Grade grade;
     private long totalPrice;
 
     private OffsetDateTime creatAt = OffsetDateTime.now();
@@ -72,6 +67,8 @@ public class Member {
         this.password = password;
     }
 
+
+
     public void delete(){
         this.memberStatus = memberStatus.DELETED;
     }
@@ -79,11 +76,13 @@ public class Member {
     public void checkGrade(long price){
 
         if(price >= 0 && price < 200000){
-            this.grade = Grade.Bronze.toString();
+            this.grade = Grade.Bronze;
         }else if(price >= 200000 && price <= 500000){
-            this.grade = Grade.Silver.toString();
+            this.grade = Grade.Silver;
         }else{
-            this.grade = Grade.Gold.toString();
+            this.grade = Grade.Gold;
         }
     }
+
+
 }

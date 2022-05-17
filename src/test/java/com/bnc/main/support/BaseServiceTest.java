@@ -1,4 +1,4 @@
-package com.bnc.main.testSupport;
+package com.bnc.main.support;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
