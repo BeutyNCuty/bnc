@@ -19,7 +19,6 @@ class ProductRepositoryTest {
         product = productRepository.save(product);
 
         Product foundProduct = productRepository.findById(product.getId()).orElseThrow();
-
         assertThat(foundProduct).isEqualTo(product);
     }
 }

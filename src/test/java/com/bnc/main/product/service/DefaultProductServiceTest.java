@@ -2,7 +2,7 @@ package com.bnc.main.product.service;
 
 import com.bnc.main.product.domain.Product;
 import com.bnc.main.product.domain.ProductRepository;
-import com.bnc.main.testSupport.BaseServiceTest;
+import com.bnc.main.support.BaseServiceTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -6,6 +6,8 @@ import org.apache.logging.log4j.util.Strings;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
+import static com.bnc.main.member.domain.Grade.*;
+import static com.bnc.main.member.domain.MemberStatus.*;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
@@ -26,13 +28,17 @@ public class Member {
     private String addr;
     private String phone;
 
-    private Grade grade;
-    private long totalPrice;
+    @Enumerated(EnumType.STRING)
+    public Grade grade = Bronze;
+
+    private long totalPrice = 0;
 
     private OffsetDateTime creatAt = OffsetDateTime.now();
-    private memberStatus memberStatus= com.bnc.main.member.domain.memberStatus.CREATED;
 
-    public Member(String userId, String password, String addr, String phone , long totalPrice) {
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus= CREATED;
+
+    public Member(String userId, String password, String addr, String phone) {
         checkArgument(Strings.isNotBlank(userId));
         checkArgument(Strings.isNotBlank(password));
         checkArgument(Strings.isNotBlank(addr));
@@ -42,7 +48,6 @@ public class Member {
         this.password = password;
         this.addr = addr;
         this.phone = phone;
-        this.totalPrice = totalPrice;
     }
 
     public void change(String password, String addr, String phone){
@@ -74,11 +79,11 @@ public class Member {
     public void checkGrade(long price){
 
         if(price >= 0 && price < 200000){
-            this.grade = Grade.Bronze;
+            this.grade = Bronze;
         }else if(price >= 200000 && price <= 500000){
-            this.grade = Grade.Silver;
+            this.grade = Silver;
         }else{
-            this.grade = Grade.Gold;
+            this.grade = Gold;
         }
     }
 }
