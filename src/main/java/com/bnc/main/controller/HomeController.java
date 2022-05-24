@@ -1,9 +1,18 @@
 package com.bnc.main.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@RestController
+@Controller
 public class HomeController {
-    //테스트
-    //테스트
+
+    @GetMapping("/")
+    public String home(){
+        return "index";
+    }
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
+
 }
