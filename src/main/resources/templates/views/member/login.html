@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/assets/js/member/login.js}"></script>
+</th:block>
+
+<section id="main" class="main" layout:fragment="content">
+    <section class="pt-7 pb-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+
+                    <!-- Heading -->
+                    <h3 class="mb-10">My Account</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-9 col-lg-8 offset-lg-3">
+
+                    <!-- Form -->
+                    <form action="/memberLogin" method="post">
+                        <div class="container">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                    <label class="form-label" for="userId">
+                                        ID
+                                    </label>
+                                    <input class="form-control form-control-sm" name="userId" id="userId" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+
+                                <!-- Email -->
+                                <div class="form-group row">
+                                    <label class="form-label" for="accountLastName">
+                                        Password
+                                    </label>
+                                    <input class="form-control form-control-sm" name="password" id="accountLastName" type="password">
+                                </div>
+                            </div>
+                            <div class="col-12 offset-lg-2">
+
+                                <!-- Button -->
+                                <button class="btn btn-dark" type="submit" id="login_btn_box">Login</button>
+                                <button id="joinBtn" class="btn btn-dark" type="button">Join</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</section><!-- End #main -->
+</html>
