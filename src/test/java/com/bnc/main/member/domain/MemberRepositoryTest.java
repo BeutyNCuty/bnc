@@ -1,9 +1,5 @@
 package com.bnc.main.member.domain;
 
-import com.bnc.main.member.controller.dto.MemberCreateDto;
-import com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreateData;
-import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.bnc.main.member.domain.Grade.*;
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -53,7 +46,7 @@ class MemberRepositoryTest {
 
         String loginId = "cc122";
 
-        Member findByUserId = memberRepository.findByUserId(loginId);
+        Member findByUserId = memberRepository.findByUserId(loginId).orElseThrow();
 
         assertThat(findByUserId).isEqualTo(member);
     }
@@ -81,7 +74,7 @@ class MemberRepositoryTest {
 
     @Test
     void 로그인_성공(){
-        Member foundMember = memberRepository.login(member1.getUserId(), member1.getPassword());
+        Member foundMember = memberRepository.login(member1.getUserId(), member1.getPassword()).orElseThrow();
 
         assertThat(foundMember.getUserId()).isEqualTo("cc121");
         assertThat(foundMember.getPassword()).isEqualTo("123");

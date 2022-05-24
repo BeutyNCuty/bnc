@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.bnc.main.member.controller.dto.MemberCreateDto.*;
+import static com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreateData;
 
 @Service
 @Transactional
@@ -27,7 +27,7 @@ public class DefaultMemberService implements MemberService {
 
     @Override
     public Member checkId(String userId) {
-        return memberRepository.findByUserId(userId);
+        return memberRepository.findByUserId(userId).orElseThrow();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DefaultMemberService implements MemberService {
 
     @Override
     public MemberCreateData loginSuccess(MemberCreateDto dto) {
-        val member = memberRepository.login(dto.getUserId(), dto.getPassword());
+        val member = memberRepository.login(dto.getUserId(), dto.getPassword()).orElseThrow();
 
         MemberCreateData foundMember = MemberCreateData.create(member);
 
