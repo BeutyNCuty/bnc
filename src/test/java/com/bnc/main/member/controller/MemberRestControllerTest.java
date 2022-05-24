@@ -1,7 +1,6 @@
 package com.bnc.main.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,14 +28,14 @@ class MemberRestControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void 멤버_생성_성공() throws Exception {
-        MemberCreatRequest req = new MemberCreatRequest("admin","1","지구","01012345678");
+        void 멤버_생성_성공() throws Exception {
+            MemberCreatRequest req = new MemberCreatRequest("admin","1","지구","01012345678");
 
-        mockMvc.perform(post("/member")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(req)))
-                .andDo(print())
-                .andExpect(status().isOk())
+            mockMvc.perform(post("/member")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsBytes(req)))
+                    .andDo(print())
+                    .andExpect(status().isOk())
                 .andExpectAll(
                         jsonPath("$.member.userId").value("admin"),
                         jsonPath("$.member.password").value("1"),
