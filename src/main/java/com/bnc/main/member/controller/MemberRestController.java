@@ -19,8 +19,6 @@ public class MemberRestController {
     @PostMapping("/joinMember")
     public MemberCreateResponse createMember(@RequestBody MemberCreatRequest req){
 
-        System.out.println("asdasd" + req);
-
         val member = memberService.create(req.toDto());
        return new MemberCreateResponse(MemberCreateData.create(member));
 
