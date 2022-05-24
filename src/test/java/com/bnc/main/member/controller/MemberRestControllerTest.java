@@ -31,7 +31,7 @@ class MemberRestControllerTest {
         void 멤버_생성_성공() throws Exception {
             MemberCreatRequest req = new MemberCreatRequest("admin","1","지구","01012345678");
 
-            mockMvc.perform(post("/member")
+            mockMvc.perform(post("/joinUser")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsBytes(req)))
                     .andDo(print())

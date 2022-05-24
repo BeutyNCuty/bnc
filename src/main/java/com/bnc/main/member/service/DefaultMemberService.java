@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreateData;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -35,14 +33,5 @@ public class DefaultMemberService implements MemberService {
         val member = new Member(dto.getUserId(), dto.getPassword(), dto.getAddr(), dto.getPhone());
 
         return memberRepository.save(member);
-    }
-
-    @Override
-    public MemberCreateData loginSuccess(MemberCreateDto dto) {
-        val member = memberRepository.login(dto.getUserId(), dto.getPassword()).orElseThrow();
-
-        MemberCreateData foundMember = MemberCreateData.create(member);
-
-        return foundMember;
     }
 }

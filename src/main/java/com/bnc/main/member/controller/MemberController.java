@@ -15,6 +15,4 @@ public class MemberController {
     public String joinHome(){
         return "/views/member/joinUser";
     }
-
-
 }

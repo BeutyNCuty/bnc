@@ -1,7 +1,7 @@
-package com.bnc.main.member.domain;
+package com.bnc.main.member.service;
 
-import com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreateData;
-import com.bnc.main.member.service.DefaultMemberService;
+import com.bnc.main.member.domain.Member;
+import com.bnc.main.member.domain.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import static com.bnc.main.member.domain.Grade.Bronze;
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @Transactional
 @SpringBootTest
@@ -44,15 +43,5 @@ class DefaultMemberServiceTest {
         for (Member member : byGrade) {
             assertThat(member.getGrade()).isEqualByComparingTo(Bronze); // 이터레이터돌면서 전부 브론즈인지확인하고맞으면 성공
         }
-    }
-    @Test
-    void 로그인_성공(){
-        Member savedMember = memberRepository.login(member1.getUserId(), member1.getPassword()).orElseThrow();
-
-        MemberCreateData foundMember = MemberCreateData.create(savedMember);
-        System.out.println("12234" + member1.getUserId());
-        System.out.println(member1.getPassword());
-        assertThat(foundMember.getUserId()).isEqualTo("cc121");
-        assertThat(foundMember.getPassword()).isEqualTo("123");
     }
 }

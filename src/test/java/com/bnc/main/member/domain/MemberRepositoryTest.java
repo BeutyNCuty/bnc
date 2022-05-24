@@ -71,12 +71,4 @@ class MemberRepositoryTest {
 
         assertThat(foundGradeMember).containsExactly(member1,member2);
     }
-
-    @Test
-    void 로그인_성공(){
-        Member foundMember = memberRepository.login(member1.getUserId(), member1.getPassword()).orElseThrow();
-
-        assertThat(foundMember.getUserId()).isEqualTo("cc121");
-        assertThat(foundMember.getPassword()).isEqualTo("123");
-    }
 }

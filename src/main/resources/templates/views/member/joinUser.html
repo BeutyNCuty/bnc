@@ -4,7 +4,8 @@
       layout:decorate="~{layout/defaultLayout}">
 
 <th:block layout:fragment="script">
-    <script th:src="@{/assets/js/member/joinUser.js}"></script>
+    <script th:src="@{assets/js/member/join.js}"></script>
+
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f73ba25d20abab3d4b95f4cd4b4a3388&libraries=services"></script>
 </th:block>
@@ -19,9 +20,7 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Form -->
 
-                <form action="/joinUser" method="post" accept-charset="UTF-8">
                     <div class="container">
 
                         <div class="col-12 col-md-6">
@@ -195,12 +194,13 @@
 
                         <div class="col-12">
                             <!-- Button -->
-                            <button class="btn btn-dark" type="submit">Save Changes</button>
+                            <button class="btn btn-dark" id="joinBtn" type="button">Save Changes</button>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </section>
+
+
 </main>
 </html>
