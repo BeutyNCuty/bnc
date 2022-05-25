@@ -41,12 +41,14 @@ public class Category {
     private List<Category> child = new ArrayList<>();
 
     public Category(String name) {
+
         checkArgument(Strings.isNotBlank(name));
 
         this.name = name;
     }
 
     public Category(String name, List<Product> products) {
+
         checkArgument(Strings.isNotBlank(name));
 
         this.name = name;
@@ -54,6 +56,7 @@ public class Category {
     }
 
     public void addChildCategory(Category child) {
+
         this.child.add(child);
         child.setParent(this);
     }
@@ -63,6 +66,7 @@ public class Category {
     }
 
     public void updateCategory(CreateCategoryDTO.Info selectCategory) {
+
         this.name = selectCategory.getChildCategory();
         this.parent.setId(Long.parseLong(selectCategory.getParentCategory()));
     }

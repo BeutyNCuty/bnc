@@ -19,7 +19,4 @@ public class ProductCreateDTO {
     private String brand;
     @NotEmpty(message = "재고 는 필수로 입력해야는 항목입니다.")
     private int stock;
-
-
-
 }

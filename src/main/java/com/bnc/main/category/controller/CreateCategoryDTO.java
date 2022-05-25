@@ -10,12 +10,14 @@ public class CreateCategoryDTO {
     @AllArgsConstructor
     @Builder
     public static class Info {
+
         private String parentCategory;
         private String childCategory;
 
         @Getter
         @Setter
         public static class Request {
+
             private String parentCategory;
             private String childCategory;
         }

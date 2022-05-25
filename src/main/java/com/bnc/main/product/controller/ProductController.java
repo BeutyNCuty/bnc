@@ -23,6 +23,7 @@ public class ProductController {
 
         Optional<List<Category>> parentCategory = categoryRepository.findParentCategory();
         Optional<List<Category>> firstChildCategory = categoryRepository.findFirstChildCategory();
+
         model.addAttribute("parentCategory" , parentCategory);
         model.addAttribute("firstChildCategory" , firstChildCategory);
 

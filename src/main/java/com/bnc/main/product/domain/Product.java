@@ -36,6 +36,7 @@ public class Product{
     public Product(){}
 
     public Product(String name, int price, String brand){
+
         checkArgument(Strings.isNotBlank(name));
         checkArgument(Strings.isNotBlank(brand));
 
@@ -45,6 +46,7 @@ public class Product{
     }
 
     public void change(String name, int price, String brand) {
+
         checkArgument(Strings.isNotBlank(name));
         checkArgument(Strings.isNotBlank(brand));
 

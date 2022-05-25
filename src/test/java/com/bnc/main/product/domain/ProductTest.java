@@ -13,6 +13,7 @@ class ProductTest {
 
     @Test
     void 상품_생성_성공() {
+
         assertThat(product.getName()).isEqualTo("옷");
         assertThat(product.getPrice()).isEqualTo(123);
         assertThat(product.getBrand()).isEqualTo("구찌");
@@ -22,6 +23,7 @@ class ProductTest {
     @ParameterizedTest
     @NullAndEmptySource
     void 상품_이름이_null이면_실패(String name){
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Product(name, 123, "구찌"));
     }
 
@@ -35,6 +37,7 @@ class ProductTest {
     @ParameterizedTest
     @NullAndEmptySource
     void 상품_브랜드가_null이면_실패(String brand){
+
         assertThatIllegalArgumentException().isThrownBy(() -> new Product("옷", 123, brand));
     }
 
@@ -48,6 +51,7 @@ class ProductTest {
 
     @Test
     void 상품_변경_성공(){
+
         final Product product = new Product("옷", 123, "구찌");
 
         product.change("가방", 1233, "디올");
@@ -59,6 +63,7 @@ class ProductTest {
 
     @Test
     void 상품_삭제_성공() {
+
         final Product product = new Product("옷", 123, "구찌");
 
         product.delete();

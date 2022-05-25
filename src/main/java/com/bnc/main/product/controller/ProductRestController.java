@@ -26,5 +26,4 @@ public class ProductRestController {
 
         return "index";
     }
-
 }
