@@ -40,6 +40,7 @@ class ProductTest {
 
     @Test
     void 상품_브랜드가_공백이면_실패(){
+
         String brand = "    ";
 
         assertThatIllegalArgumentException().isThrownBy(() -> new Product("옷", 123, brand));

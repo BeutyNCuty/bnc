@@ -25,10 +25,7 @@ public class ProductController {
         Optional<List<Category>> firstChildCategory = categoryRepository.findFirstChildCategory();
         model.addAttribute("parentCategory" , parentCategory);
         model.addAttribute("firstChildCategory" , firstChildCategory);
+
         return "views/product/createProduct";
-
     }
-
-
-
 }

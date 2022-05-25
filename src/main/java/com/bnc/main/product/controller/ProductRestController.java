@@ -17,7 +17,6 @@ public class ProductRestController {
 
     @PostMapping("/createProduct")
     public String createProduct(ProductCreateDTO productCreateDTO){
-        System.out.println("productCreateDTO = " + productCreateDTO);
 
         Product product = new Product();
 
@@ -26,7 +25,6 @@ public class ProductRestController {
         ps.create(entityProduct);
 
         return "index";
-
     }
 
 }

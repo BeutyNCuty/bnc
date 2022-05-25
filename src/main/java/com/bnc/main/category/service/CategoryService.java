@@ -15,5 +15,4 @@ public interface CategoryService {
     void updateCategory(Long id , CreateCategoryDTO.Info category);
 
     Optional<List<Category>> findFirstChildCategory();
-
 }
