@@ -1,13 +1,15 @@
 package com.bnc.main.member.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 import static com.bnc.main.member.domain.Grade.*;
-import static com.bnc.main.member.domain.MemberStatus.*;
+import static com.bnc.main.member.domain.MemberStatus.CREATED;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
@@ -32,6 +34,7 @@ public class Member {
     public Grade grade = Bronze;
 
     private long totalPrice = 0;
+
 
     private OffsetDateTime creatAt = OffsetDateTime.now();
 

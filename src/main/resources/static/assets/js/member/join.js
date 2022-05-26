@@ -1,9 +1,5 @@
 $(document).ready(function(){
     $('#joinBtn').click(function (){
-        joinUser()
-    });
-
-    function joinUser(){
         $.ajax({
             url: '/joinMember',
             type: 'post',
@@ -21,5 +17,5 @@ $(document).ready(function(){
                 location.href = '/login';
             }
         });
-    };
+    });
 });

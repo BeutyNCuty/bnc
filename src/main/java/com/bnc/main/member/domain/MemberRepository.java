@@ -12,11 +12,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "from Member m "+
             "where m.userId = :userId"
     )
-    Optional<Member> findByUserId(String userId);
+   Optional<Member> findByUserId(String userId);
 
     @Query("select m "+
             "from Member m "+
             "where m.grade = :grade"
     )
     List<Member> findByGrade(Grade grade);
+
+    @Query("select count(*) " +
+            "from Member m " +
+            "where m.userId = :userId"
+    )
+    int countByuserId(String userId);
 }

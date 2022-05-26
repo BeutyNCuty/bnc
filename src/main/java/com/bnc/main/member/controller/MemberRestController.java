@@ -20,7 +20,7 @@ public class MemberRestController {
     public MemberCreateResponse createMember(@RequestBody MemberCreatRequest req){
 
         val member = memberService.create(req.toDto());
-       return new MemberCreateResponse(MemberCreateData.create(member));
 
+       return new MemberCreateResponse(MemberCreateData.create(member));
     }
 }
