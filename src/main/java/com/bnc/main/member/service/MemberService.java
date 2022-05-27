@@ -1,6 +1,5 @@
 package com.bnc.main.member.service;
 
-import com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreateData;
 import com.bnc.main.member.domain.Grade;
 import com.bnc.main.member.domain.Member;
 import com.bnc.main.member.service.dto.MemberCreateDto;
@@ -14,6 +13,4 @@ public interface MemberService  {
     public Member checkId(String userId);
 
     public Member create(MemberCreateDto member);
-
-    public MemberCreateData loginSuccess(MemberCreateDto member);
 }

@@ -16,9 +16,11 @@ public class MemberRestController {
 
     private final MemberService memberService;
 
-    @PostMapping("/member")
+    @PostMapping("/joinMember")
     public MemberCreateResponse createMember(@RequestBody MemberCreatRequest req){
-       val member = memberService.create(req.toDto());
+
+        val member = memberService.create(req.toDto());
+
        return new MemberCreateResponse(MemberCreateData.create(member));
     }
 }

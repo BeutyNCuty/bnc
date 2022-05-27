@@ -52,8 +52,15 @@ class MemberRepositoryTest {
     }
 
     @Test
+    void 유저_아이디_조회_실패(){
+        String loginId = "cc166";
+
+        assertThat(memberRepository.findByUserId(loginId).isPresent()).isEqualTo(false);
+    }
+
+    @Test
     void 브론즈등급_유저_조회() {
-        List<Member> foundGradeMember = memberRepository.findByGrade(Bronze);
+       List<Member> foundGradeMember = memberRepository.findByGrade(Bronze);
 
         assertThat(foundGradeMember).containsExactly(member5, member6);
     }
@@ -73,10 +80,9 @@ class MemberRepositoryTest {
     }
 
     @Test
-    void 로그인_성공(){
-        Member foundMember = memberRepository.login(member1.getUserId(), member1.getPassword()).orElseThrow();
+    void 아이디_중복체크(){
+        int count = memberRepository.countByuserId("cc121");
 
-        assertThat(foundMember.getUserId()).isEqualTo("cc121");
-        assertThat(foundMember.getPassword()).isEqualTo("123");
+        assertThat(count).isEqualTo(1);
     }
 }

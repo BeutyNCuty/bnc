@@ -14,7 +14,6 @@ public class MemberCreateDto {
 
     @Getter
     @AllArgsConstructor
-    @ToString
     public static class MemberCreatRequest {
         private String userId;
         private String password;
