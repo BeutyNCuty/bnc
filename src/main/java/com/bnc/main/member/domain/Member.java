@@ -34,8 +34,7 @@ public class Member {
     public Grade grade = Bronze;
 
     private long totalPrice = 0;
-
-
+    
     private OffsetDateTime creatAt = OffsetDateTime.now();
 
     @Enumerated(EnumType.STRING)
