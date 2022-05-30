@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
+    Category createParentsCategory(CreateCategoryDTO.ParentsCategoryCreateRequest newCategory);
 
-   Category createSecondCategory(CreateCategoryDTO.Info parentCategory);
+    Category createSecondCategory(CreateCategoryDTO.ChildCategoryCreateRequest newCategory);
 
     Optional<List<Category>> categoryClassification(Long parentId);
 
-    void updateCategory(Long id , CreateCategoryDTO.Info category);
-
-    Optional<List<Category>> findFirstChildCategory();
+    void updateCategory(Long id, CreateCategoryDTO.ChildCategoryCreateRequest category);
 }

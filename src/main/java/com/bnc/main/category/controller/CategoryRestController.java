@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,17 +14,10 @@ public class CategoryRestController {
 
     private final DefaultCategoryService categoryService;
 
-    @PostMapping("/createCategory")
-    public CreateCategoryDTO.Info createSecondCategory(@RequestBody CreateCategoryDTO.Info secondCategoryName) {
-
+    @PostMapping("/createSecondCategory")
+    public ChildCategoryCreateRequest createSecondCategory(@RequestBody ChildCategoryCreateRequest secondCategoryName) {
         categoryService.createSecondCategory(secondCategoryName);
 
         return secondCategoryName;
-
     }
-   /* @GetMapping("/categoryClassification")
-    public void categoryClassification(@RequestBody String parentCategoryId) {
-
-     //josn  형태로바꿔서
-    }*/
 }

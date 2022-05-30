@@ -1,22 +1,17 @@
 package com.bnc.main.category.domain;
-import com.bnc.main.category.controller.CreateCategoryDTO;
 
-public class CategoryParser{
+import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
 
-    public static Category parserCategoryDtoToEntity(CreateCategoryDTO.Info categoryDTO){
+public class CategoryParser {
 
+    public static Category parserCategoryDtoToEntity(ChildCategoryCreateRequest categoryDTO) {
         return new Category(
-                categoryDTO.getChildCategory()
+                categoryDTO.getChildCategoryName()
         );
     }
 
-    public static CreateCategoryDTO.Info.Request parserCategoryEntityToDto(Category categoryEntity){
-
-        CreateCategoryDTO.Info.Request categoryDTO = new CreateCategoryDTO.Info.Request();
-
-        categoryDTO.setParentCategory(categoryEntity.getParent().getId()+"");
-        categoryDTO.setChildCategory(categoryEntity.getName());
-
-        return categoryDTO;
+    public static ChildCategoryCreateRequest parserCategoryEntityToDto(Category categoryEntity) {
+        return new ChildCategoryCreateRequest(categoryEntity.getName()
+                , categoryEntity.getParent().getId() + "");
     }
 }

@@ -18,38 +18,36 @@ public class DefaultCategoryService implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category createSecondCategory(CreateCategoryDTO.Info newCategory ) {
+    public Category createParentsCategory(CreateCategoryDTO.ParentsCategoryCreateRequest newCategory){
+        Category parentsCategory = new Category(newCategory.getParentCategoryName());
 
-        Category firstCategory = categoryRepository.getById(Long.parseLong(newCategory.getParentCategory()));
+        Category saveParentsCategory = categoryRepository.save(parentsCategory);
 
-        Category childCategory  = new Category(newCategory.getChildCategory());
+        return saveParentsCategory;
+    }
 
-        firstCategory.addChildCategory(childCategory);
+    @Override
+    public Category createSecondCategory(CreateCategoryDTO.ChildCategoryCreateRequest newCategory ) {
+        Category SaveChildCategory  = new Category(newCategory.getChildCategoryName());
+
+        Category firstCategory = categoryRepository.getById(Long.parseLong(newCategory.getParentCategoryName()));
+
+        firstCategory.addChildCategory(SaveChildCategory);
 
         return firstCategory;
     }
 
     @Override
     public Optional<List<Category>> categoryClassification(Long parentId) {
-
         Optional<List<Category>> childByParentId = categoryRepository.getChildByParentId(parentId);
 
         return childByParentId;
     }
 
     @Override
-    public void updateCategory(Long id , CreateCategoryDTO.Info category) {
+    public void updateCategory(Long id , CreateCategoryDTO.ChildCategoryCreateRequest category) {
+       Category foundById = categoryRepository.findById(id).orElseThrow();
 
-       Category findById = categoryRepository.findById(id).orElseThrow();
-
-       findById.updateCategory(category);
-    }
-
-    @Override
-    public Optional<List<Category>> findFirstChildCategory() {
-
-        Optional<List<Category>> firstChildCategory = categoryRepository.findFirstChildCategory();
-
-        return firstChildCategory;
+       foundById.updateCategory(category);
     }
 }

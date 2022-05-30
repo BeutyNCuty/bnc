@@ -1,6 +1,5 @@
 package com.bnc.main.product.controller;
 
-
 import com.bnc.main.product.controller.dto.ProductCreateDTO;
 import com.bnc.main.product.domain.Product;
 import com.bnc.main.product.service.DefaultProductService;
@@ -12,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ProductRestController {
 
-    private final DefaultProductService ps;
-
+    private final DefaultProductService defaultProductService;
 
     @PostMapping("/createProduct")
     public String createProduct(ProductCreateDTO productCreateDTO){
@@ -22,7 +20,7 @@ public class ProductRestController {
 
         Product entityProduct = product.dtoToEntity(productCreateDTO);
 
-        ps.create(entityProduct);
+        Product createProduct = defaultProductService.create(entityProduct);
 
         return "index";
     }

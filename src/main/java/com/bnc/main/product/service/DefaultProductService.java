@@ -15,7 +15,6 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public Product create(Product product) {
-
         return productRepository.save(product);
     }
 
@@ -26,7 +25,6 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public void update(Long id, Product prams) {
-
         Product product = productRepository.findById(id).orElseThrow();
 
         product.change(prams.getName(), prams.getPrice(), prams.getBrand());

@@ -22,26 +22,27 @@ import static javax.persistence.FetchType.LAZY;
 public class Category {
 
     @ManyToMany(cascade = ALL)
-
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products = new ArrayList<>();
+
     @ManyToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "parent_id")
     Category parent;
+
     @Id
     @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     @Column(unique = true)
     private String name;
+
     @OneToMany(mappedBy = "parent", cascade = ALL)
     private List<Category> child = new ArrayList<>();
 
     public Category(String name) {
-
         checkArgument(Strings.isNotBlank(name));
 
         this.name = name;
@@ -56,7 +57,6 @@ public class Category {
     }
 
     public void addChildCategory(Category child) {
-
         this.child.add(child);
         child.setParent(this);
     }
@@ -65,9 +65,8 @@ public class Category {
         this.parent = parent;
     }
 
-    public void updateCategory(CreateCategoryDTO.Info selectCategory) {
-
-        this.name = selectCategory.getChildCategory();
-        this.parent.setId(Long.parseLong(selectCategory.getParentCategory()));
+    public void updateCategory(CreateCategoryDTO.ChildCategoryCreateRequest selectCategory) {
+        this.name = selectCategory.getChildCategoryName();
+        this.parent.setId(Long.parseLong(selectCategory.getParentCategoryName()));
     }
 }
