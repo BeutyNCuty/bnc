@@ -42,6 +42,24 @@ class MemberRepositoryTest {
     }
 
     @Test
+    void 멤버_생성_성공() {
+        Member member = new Member("cc1212", "123", "010", "부천");
+
+        memberRepository.save(member);
+
+        Member foundMember = memberRepository.findByUserId(member.getUserId()).orElseThrow();
+
+        assertThat(foundMember.getId()).isNotNull();
+        assertThat(foundMember.getUserId()).isEqualTo("cc1212");
+        assertThat(foundMember.getMemberStatus()).isEqualTo(CREATED);
+        assertThat(foundMember.getPassword()).isEqualTo("123");
+        assertThat(foundMember.getAddr()).isEqualTo("010");
+        assertThat(foundMember.getPhone()).isEqualTo("부천");
+        assertThat(foundMember.getGrade()).isEqualTo(Bronze);
+        assertThat(foundMember.getTotalPrice()).isEqualTo(0);
+    }
+
+    @Test
     void 유저_아이디_조회() {
         Member findByUserId = memberRepository.findByUserId("cc121").orElseThrow();
 

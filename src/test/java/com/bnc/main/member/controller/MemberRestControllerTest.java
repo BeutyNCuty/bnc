@@ -36,17 +36,17 @@ class MemberRestControllerTest {
     void 멤버_생성_성공() throws Exception {
         MemberCreatRequest req = new MemberCreatRequest("admin", "1", "지구", "01012345678");
 
-            mockMvc.perform(post("/joinMember")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsBytes(req)))
-                    .andDo(print())
-                    .andExpect(status().isOk())
+        mockMvc.perform(post("/joinMember")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(req)))
+                .andDo(print())
+                .andExpect(status().isOk())
                 .andExpectAll(
                         jsonPath("$.member.userId").value("admin"),
                         jsonPath("$.member.password").value("1"),
                         jsonPath("$.member.addr").value("지구"),
                         jsonPath("$.member.phone").value("01012345678")
-                );
+        );
     }
 
     @Test
