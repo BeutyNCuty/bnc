@@ -2,6 +2,7 @@ package com.bnc.main.member.service;
 
 import com.bnc.main.member.domain.Member;
 import com.bnc.main.member.domain.MemberRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.bnc.main.member.domain.Grade.Bronze;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -43,5 +45,12 @@ class DefaultMemberServiceTest {
         for (Member member : byGrade) {
             assertThat(member.getGrade()).isEqualByComparingTo(Bronze); // 이터레이터돌면서 전부 브론즈인지확인하고맞으면 성공
         }
+    }
+
+    @Test
+    void 유저_번호로_조회_성공(){
+        Member foundmember = defaultMemberService.findById(member1.getId());
+
+        assertThat(member1).isEqualTo(foundmember);
     }
 }
