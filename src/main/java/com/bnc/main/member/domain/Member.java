@@ -1,54 +1,51 @@
 package com.bnc.main.member.domain;
 
-import com.bnc.main.support.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 
+import static com.bnc.main.member.domain.Grade.*;
+import static com.bnc.main.member.domain.MemberStatus.CREATED;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name="uq_user_Id",columnNames="user_Id")
+        }
+)
+public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, name = "user_Id")
     private String userId;
-
     private String password;
-
     private String addr;
-
     private String phone;
 
-    private String grade;
+    @Enumerated(EnumType.STRING)
+    public Grade grade = Bronze;
 
-    private long totalPrice;
-
+    private long totalPrice = 0;
+    
     private OffsetDateTime creatAt = OffsetDateTime.now();
 
-    private memberStatus memberStatus;
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus= CREATED;
 
-
-
-
-
-    public Member(String userId, String password, String addr, String phone , long totalPrice) {
+    public Member(String userId, String password, String addr, String phone) {
         checkArgument(Strings.isNotBlank(userId));
         checkArgument(Strings.isNotBlank(password));
         checkArgument(Strings.isNotBlank(addr));
         checkArgument(Strings.isNotBlank(phone));
 
-        this.userId = userId;
-        this.password = password;
-        this.addr = addr;
-        this.phone = phone;
-        this.totalPrice = totalPrice;
-    }
-
-    public Member(String userId, String password, String addr, String phone) {
         this.userId = userId;
         this.password = password;
         this.addr = addr;
@@ -77,7 +74,6 @@ public class Member extends BaseEntity {
         this.password = password;
     }
 
-
     public void delete(){
         this.memberStatus = memberStatus.DELETED;
     }
@@ -85,11 +81,11 @@ public class Member extends BaseEntity {
     public void checkGrade(long price){
 
         if(price >= 0 && price < 200000){
-            this.grade = Grade.Bronze.toString();
+            this.grade = Bronze;
         }else if(price >= 200000 && price <= 500000){
-            this.grade = Grade.Silver.toString();
+            this.grade = Silver;
         }else{
-            this.grade = Grade.Gold.toString();
+            this.grade = Gold;
         }
     }
 }
