@@ -1,6 +1,5 @@
 package com.bnc.main.category.service;
 
-import com.bnc.main.category.controller.CreateCategoryDTO;
 import com.bnc.main.category.domain.Category;
 import com.bnc.main.category.domain.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
+import static com.bnc.main.category.controller.CreateCategoryDTO.ParentsCategoryCreateRequest;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -18,8 +20,8 @@ public class DefaultCategoryService implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category createParentsCategory(CreateCategoryDTO.ParentsCategoryCreateRequest newCategory){
-        Category parentsCategory = new Category(newCategory.getParentCategoryName());
+    public Category createParentsCategory(ParentsCategoryCreateRequest newParentsCategory){
+        Category parentsCategory = new Category(newParentsCategory.getParentCategoryName());
 
         Category saveParentsCategory = categoryRepository.save(parentsCategory);
 
@@ -27,14 +29,16 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public Category createSecondCategory(CreateCategoryDTO.ChildCategoryCreateRequest newCategory ) {
-        Category SaveChildCategory  = new Category(newCategory.getChildCategoryName());
+    public Category createSecondCategory(ChildCategoryCreateRequest newChildCategory ) {
+        Category childCategory  = new Category(newChildCategory.getChildCategoryName());
 
-        Category firstCategory = categoryRepository.getById(Long.parseLong(newCategory.getParentCategoryName()));
+        Category saveChildCategory = categoryRepository.save(childCategory);
 
-        firstCategory.addChildCategory(SaveChildCategory);
+        Category firstCategory = categoryRepository.getById(Long.parseLong(newChildCategory.getParentCategoryName()));
 
-        return firstCategory;
+        saveChildCategory.setParent(firstCategory);
+
+        return saveChildCategory;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public void updateCategory(Long id , CreateCategoryDTO.ChildCategoryCreateRequest category) {
+    public void updateCategory(Long id , ChildCategoryCreateRequest category) {
        Category foundById = categoryRepository.findById(id).orElseThrow();
 
        foundById.updateCategory(category);

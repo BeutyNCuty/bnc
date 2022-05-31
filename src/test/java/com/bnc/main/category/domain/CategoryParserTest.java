@@ -1,39 +1,20 @@
 package com.bnc.main.category.domain;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.bnc.main.category.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
+import static com.bnc.main.category.controller.CreateCategoryDTO.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@SpringBootTest
+@Transactional
 class CategoryParserTest {
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @BeforeEach
-    void createCategoryEntity() {
-        Category parentCategory1 = new Category("Clothes");
-        Category parentCategory2 = new Category("Bag");
-        Category parentCategory3 = new Category("Shoes");
-        Category parentCategory4 = new Category("Accessory");
-
-        categoryRepository.save(parentCategory1);
-        categoryRepository.save(parentCategory2);
-        categoryRepository.save(parentCategory3);
-        categoryRepository.save(parentCategory4);
-
-        Category childCategory1 = new Category("Top");
-        Category childCategory2 = new Category("Pants");
-        Category childCategory3 = new Category("Shirts");
-
-        parentCategory1.addChildCategory(childCategory1);
-        parentCategory1.addChildCategory(childCategory2);
-        parentCategory1.addChildCategory(childCategory3);
-    }
+    private CategoryService categoryService;
 
     @Test
     void 카테고리_디티오_에서_엔티티로_변환_성공() {
@@ -46,10 +27,13 @@ class CategoryParserTest {
 
     @Test
     void 카테고리_엔티티_에서_디티오_변환_성공() {
-        Category foundById = categoryRepository.findById(5L).orElseThrow();
+        Category parentsCategory = categoryService.createParentsCategory(new ParentsCategoryCreateRequest("Clothes"));
 
-        ChildCategoryCreateRequest request = CategoryParser.parserCategoryEntityToDto(foundById);
+        Category top = categoryService.createSecondCategory(new ChildCategoryCreateRequest(parentsCategory.getId() + "", "Top"));
 
-        assertThat(foundById.getName()).isEqualTo(request.getParentCategoryName());
+        ChildCategoryFoundResponse childCategorySearchResponse = CategoryParser.parserCategoryEntityToDto(top);
+
+        assertThat(childCategorySearchResponse.getChilCategoryName()).isEqualTo(top.getName());
+        assertThat(childCategorySearchResponse.getParentCategoryId()).isEqualTo(top.getParent().getId()+"");
     }
 }

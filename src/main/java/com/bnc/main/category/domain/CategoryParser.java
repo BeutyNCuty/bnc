@@ -1,6 +1,7 @@
 package com.bnc.main.category.domain;
 
 import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
+import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryFoundResponse;
 
 public class CategoryParser {
 
@@ -10,8 +11,8 @@ public class CategoryParser {
         );
     }
 
-    public static ChildCategoryCreateRequest parserCategoryEntityToDto(Category categoryEntity) {
-        return new ChildCategoryCreateRequest(categoryEntity.getName()
-                , categoryEntity.getParent().getId() + "");
+    public static ChildCategoryFoundResponse parserCategoryEntityToDto(Category categoryEntity) {
+        return new ChildCategoryFoundResponse(categoryEntity.getParent().getId()+""
+                , categoryEntity.getName());
     }
 }

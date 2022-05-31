@@ -17,4 +17,11 @@ public class CreateCategoryDTO {
         private String parentCategoryName;
         private String childCategoryName;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public  static class ChildCategoryFoundResponse{
+        private String parentCategoryId;
+        private String chilCategoryName;
+    }
 }

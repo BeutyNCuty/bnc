@@ -6,6 +6,8 @@ import com.bnc.main.category.domain.CategoryRepository;
 import com.bnc.main.testSupport.BaseServiceTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,6 +17,7 @@ import java.util.List;
 import static com.bnc.main.category.controller.CreateCategoryDTO.ChildCategoryCreateRequest;
 import static com.bnc.main.category.controller.CreateCategoryDTO.ParentsCategoryCreateRequest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 @Transactional
 @SpringBootTest
@@ -35,7 +38,7 @@ class DefaultCategoryServiceTest{
         assertThat(parentsCategory.getName()).isEqualTo("Clothes");
         assertThat(parentsCategory.getParent()).isEqualTo(null);
     }
-
+    
     @Test
     void 이차_카테고리생성_성공(){
         ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("Clothes");
@@ -46,11 +49,19 @@ class DefaultCategoryServiceTest{
 
         Category secondCategory = categoryService.createSecondCategory(newCategory);
 
-        List<Category> allCategory = categoryRepository.findAll();
+        List<Category> allFoundCategory = categoryRepository.findAll();
 
-        assertThat(allCategory).contains(secondCategory);
+        assertThat(allFoundCategory).contains(parentsCategory,secondCategory);
     }
 
+    @ParameterizedTest
+    @NullAndEmptySource
+    void 일차_카테고리_null이면_이차_카테고리생성_실패(String parntCategoryName){
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> categoryService
+                        .createSecondCategory(new ChildCategoryCreateRequest(parntCategoryName, "Top")));
+    }
+    
     @Test
     void 카테고리_분류_성공(){
         Category parentCategory1 = new Category("Clothes");
@@ -80,9 +91,15 @@ class DefaultCategoryServiceTest{
 
     @Test
     void 카테고리_정보_변경_성공(){
-        /*테스트미완성*/
-        Category Clothes = categoryService.createParentsCategory(new ParentsCategoryCreateRequest("Clothes"));
+        Category clothes = categoryService.createParentsCategory(new ParentsCategoryCreateRequest("Clothes"));
 
-        Category Bag = categoryService.createParentsCategory(new ParentsCategoryCreateRequest("Bag"));
+        Category bag = categoryService.createParentsCategory(new ParentsCategoryCreateRequest("Bag"));
+
+        Category top = categoryService.createSecondCategory(new ChildCategoryCreateRequest(clothes.getId() + "", "Top"));
+
+        categoryService.updateCategory(top.getId(),new ChildCategoryCreateRequest(bag.getId()+"","Backpack"));
+
+        assertThat(top.getName()).isEqualTo("Backpack");
+        assertThat(top.getParent().getId()).isEqualTo(bag.getId());
     }
 }
