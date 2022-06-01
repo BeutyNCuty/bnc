@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.bnc.main.member.controller.dto.MemberCreateDto.MemberCreatRequest;
+import static com.bnc.main.member.domain.Grade.Bronze;
+import static com.bnc.main.member.domain.MemberStatus.CREATED;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -34,46 +36,65 @@ class MemberRestControllerTest {
 
     @Test
     void 멤버_생성_성공() throws Exception {
-        MemberCreatRequest req = new MemberCreatRequest("admin", "1", "지구", "01012345678");
+        MemberCreatRequest member = new MemberCreatRequest("admin", "1", "지구", "01012345678");
 
         mockMvc.perform(post("/joinMember")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(req)))
+                        .content(objectMapper.writeValueAsBytes(member)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpectAll(
                         jsonPath("$.member.userId").value("admin"),
                         jsonPath("$.member.password").value("1"),
                         jsonPath("$.member.addr").value("지구"),
-                        jsonPath("$.member.phone").value("01012345678")
+                        jsonPath("$.member.phone").value("01012345678"),
+                        jsonPath("$.member.grade").value(Bronze.name()),
+                        jsonPath("$.member.memberStatus").value(CREATED.name()),
+                        jsonPath("$.member.totalPrice").value(0),
+                        jsonPath("$.member.creatAt").isNotEmpty()
         );
     }
 
     @Test
     void 멤버_조회_성공() throws Exception {
-        Member req = memberRepository.save(new Member("admin", "1", "지구", "01012345678"));
+        Member member = memberRepository.save(new Member("admin", "1", "지구", "01012345678"));
 
-        mockMvc.perform(get("/detailMember/" + req.getId())
+        mockMvc.perform(get("/detailMember/{id}", member.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andExpectAll(
+                        jsonPath("$.member.userId").value("admin"),
+                        jsonPath("$.member.password").value("1"),
+                        jsonPath("$.member.addr").value("지구"),
+                        jsonPath("$.member.phone").value("01012345678"),
+                        jsonPath("$.member.grade").value(Bronze.name()),
+                        jsonPath("$.member.memberStatus").value(CREATED.name()),
+                        jsonPath("$.member.totalPrice").value(0),
+                        jsonPath("$.member.creatAt").isNotEmpty()
+                );;
     }
 
     @Test
     void 멤버_수정_성공()throws Exception{
-        Member req = memberRepository.save(new Member("admin", "1", "지구", "01012345678"));
+        Member member = memberRepository.save(new Member("admin", "1", "지구", "01012345678"));
 
-        req.change("123","화성", "01054646464");
+        member.change("123","화성", "01054646464");
 
         mockMvc.perform(patch("/modifyMember")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(req)))
+                        .content(objectMapper.writeValueAsBytes(member)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpectAll(
+                        jsonPath("$.member.userId").value("admin"),
                         jsonPath("$.member.password").value("123"),
                         jsonPath("$.member.addr").value("화성"),
-                        jsonPath("$.member.phone").value("01054646464")
+                        jsonPath("$.member.phone").value("01054646464"),
+                        jsonPath("$.member.grade").value(Bronze.name()),
+                        jsonPath("$.member.memberStatus").value(CREATED.name()),
+                        jsonPath("$.member.totalPrice").value(0),
+                        jsonPath("$.member.creatAt").isNotEmpty()
         );
     }
 }

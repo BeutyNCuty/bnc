@@ -96,7 +96,7 @@ class MemberRepositoryTest {
 
     @Test
     void 아이디_중복체크() {
-        int count = memberRepository.countByuserId("cc121");
+        int count = memberRepository.countByUserId("cc121");
 
         assertThat(count).isEqualTo(1);
     }

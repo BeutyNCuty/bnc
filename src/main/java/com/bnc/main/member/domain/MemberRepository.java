@@ -25,5 +25,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "where m.userId = :userId"
     )
 
-    int countByuserId(String userId);
+    int countByUserId(String userId);
 }
