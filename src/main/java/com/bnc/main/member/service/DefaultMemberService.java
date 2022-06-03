@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,12 +37,12 @@ public class DefaultMemberService implements MemberService {
     }
 
     @Override
-    public Member findById(long id) {
+    public Member member(long id) {
         return memberRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public Member updateMember(MemberUpdateDto dto){
+    public Member memberUpdate(MemberUpdateDto dto){
         Member member = memberRepository.findByUserId(dto.getUserId()).orElseThrow();
 
         member.change(dto.getPassword(), dto.getAddr(), dto.getPhone());
@@ -52,10 +51,9 @@ public class DefaultMemberService implements MemberService {
     }
 
     @Override
-    public Member delete(long id) {
+    public void memberWithdrawal(long id) {
         Member member = memberRepository.findById(id).orElseThrow();
-        member.delete();
 
-        return member;
+        member.delete();
     }
 }

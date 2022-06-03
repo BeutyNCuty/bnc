@@ -29,20 +29,20 @@ public class MemberRestController {
 
     @GetMapping("/detailMember/{id}")
     public MemberDetailResponse detailMember(@PathVariable long id){
-        val member = memberService.findById(id);
+        val member = memberService.member(id);
 
         return new MemberDetailResponse(read(member));
     }
 
     @PatchMapping("/modifyMember")
     public MemberUpdateResponse modifyMember(@RequestBody MemberUpdateRequest req){
-        val member = memberService.updateMember(req.toDto());
+        val member = memberService.memberUpdate(req.toDto());
 
         return new MemberUpdateResponse(update(member));
     }
 
     @PatchMapping("/deleteMember/{id}")
     public void deleteMember(@PathVariable long id){
-        val member = memberService.delete(id);
+        memberService.memberWithdrawal(id);
     }
 }

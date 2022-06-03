@@ -13,7 +13,7 @@ import java.util.List;
 
 import static com.bnc.main.member.domain.Grade.Bronze;
 import static com.bnc.main.member.domain.MemberStatus.DELETED;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
@@ -47,16 +47,16 @@ class DefaultMemberServiceTest {
     }
 
     @Test
-    void 유저_번호로_조회_성공(){
-        Member foundMember = defaultMemberService.findById(member1.getId());
+    void 유저_id로_조회_성공(){
+        Member foundMember = defaultMemberService.member(member1.getId());
 
         assertThat(member1).isEqualTo(foundMember);
     }
 
     @Test
     void 유저_삭제_성공(){
-        Member deleteMember = defaultMemberService.delete(member1.getId());
+        defaultMemberService.memberWithdrawal(member1.getId());
 
-        assertThat(deleteMember.getMemberStatus()).isEqualTo(DELETED);
+        assertThat(member1.getMemberStatus()).isEqualTo(DELETED);
     }
 }

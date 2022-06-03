@@ -6,7 +6,6 @@ import com.bnc.main.member.service.dto.MemberCreateDto;
 import com.bnc.main.member.service.dto.MemberUpdateDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MemberService  {
 
@@ -16,9 +15,9 @@ public interface MemberService  {
 
     public Member create(MemberCreateDto member);
 
-    public Member findById(long id);
+    public Member member(long id);
 
-    public Member updateMember(MemberUpdateDto member);
+    public Member memberUpdate(MemberUpdateDto member);
 
-    public Member delete(long id);
+    public void memberWithdrawal(long id);
 }

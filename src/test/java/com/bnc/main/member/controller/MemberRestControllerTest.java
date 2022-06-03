@@ -19,7 +19,8 @@ import static com.bnc.main.member.domain.MemberStatus.DELETED;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
 @AutoConfigureMockMvc
@@ -61,7 +62,8 @@ class MemberRestControllerTest {
         Member member = memberRepository.save(new Member("admin", "1", "지구", "01012345678"));
 
         mockMvc.perform(get("/detailMember/{id}", member.getId())
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                        .param("id",member.getId().toString()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpectAll(
@@ -105,7 +107,7 @@ class MemberRestControllerTest {
 
         mockMvc.perform(patch("/deleteMember/{id}", member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(member)))
+                        .param("id",member.getId().toString()))
                 .andDo(print())
                 .andExpect(status().isOk());
 
