@@ -38,8 +38,8 @@ public class DefaultMemberService implements MemberService {
     }
 
     @Override
-    public Member findById(long userId) {
-        return memberRepository.findById(userId).orElseThrow();
+    public Member findById(long id) {
+        return memberRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -47,6 +47,14 @@ public class DefaultMemberService implements MemberService {
         Member member = memberRepository.findByUserId(dto.getUserId()).orElseThrow();
 
         member.change(dto.getPassword(), dto.getAddr(), dto.getPhone());
+
+        return member;
+    }
+
+    @Override
+    public Member delete(long id) {
+        Member member = memberRepository.findById(id).orElseThrow();
+        member.delete();
 
         return member;
     }

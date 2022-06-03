@@ -40,4 +40,9 @@ public class MemberRestController {
 
         return new MemberUpdateResponse(update(member));
     }
+
+    @PatchMapping("/deleteMember/{id}")
+    public void deleteMember(@PathVariable long id){
+        val member = memberService.delete(id);
+    }
 }

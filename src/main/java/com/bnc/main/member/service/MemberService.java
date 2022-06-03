@@ -16,7 +16,9 @@ public interface MemberService  {
 
     public Member create(MemberCreateDto member);
 
-    public Member findById(long userId);
+    public Member findById(long id);
 
     public Member updateMember(MemberUpdateDto member);
+
+    public Member delete(long id);
 }
