@@ -27,7 +27,7 @@ class ProductTest {
 
     @Test
     void 상품_이름이_공백이면_실패(){
-        String name = "    ";
+        String name = " ";
 
         assertThatIllegalArgumentException().isThrownBy(() -> new Product(name, 123, "구찌"));
     }
@@ -40,7 +40,7 @@ class ProductTest {
 
     @Test
     void 상품_브랜드가_공백이면_실패(){
-        String brand = "    ";
+        String brand = " ";
 
         assertThatIllegalArgumentException().isThrownBy(() -> new Product("옷", 123, brand));
     }

@@ -14,7 +14,7 @@ class ProductRepositoryTest {
 
     @Test
     void 상품_생성_성공() {
-        Product product = new Product("옷", 123, "구찌");
+        Product product = new Product("티셔츠", 123, "구찌");
 
         product = productRepository.save(product);
 
