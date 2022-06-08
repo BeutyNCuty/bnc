@@ -11,17 +11,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ProductRestController {
 
-    private final DefaultProductService defaultProductService;
-
-    @PostMapping("/createProduct")
-    public String createProduct(ProductCreateDTO productCreateDTO){
-
-        Product product = new Product();
-
-        Product entityProduct = product.dtoToEntity(productCreateDTO);
-
-        Product createProduct = defaultProductService.create(entityProduct);
-
-        return "index";
-    }
 }

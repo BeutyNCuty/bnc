@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
+    @Query("select c from Category c where c.parent.id =:id")
     Optional<List<Category>> getChildByParentId(Long id);
 
     @Query("select c from Category c where c.parent.id is null")
@@ -15,6 +16,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("select c from Category c where  c.parent.id is not null")
     Optional<List<Category>> foundAllChildCategory();
 
-    @Query("select c from Category c where c.parent = :parentId")
+    @Query("select c from Category c where c.parent.id = :parentId")
     Optional<List<Category>> categoryClassification(Long parentId);
 }

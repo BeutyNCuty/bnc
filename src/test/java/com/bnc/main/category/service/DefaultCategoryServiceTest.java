@@ -3,7 +3,6 @@ package com.bnc.main.category.service;
 
 import com.bnc.main.category.domain.Category;
 import com.bnc.main.category.domain.CategoryRepository;
-import com.bnc.main.testSupport.BaseServiceTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,6 +28,11 @@ class DefaultCategoryServiceTest{
     @Autowired
     private CategoryService categoryService;
 
+    private Category category1;
+    private Category category2;
+    private Category category3;
+    private Category category4;
+    
     @Test
     void 일차_카테고리생성_성공(){
         ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("Clothes");
@@ -101,5 +105,20 @@ class DefaultCategoryServiceTest{
 
         assertThat(top.getName()).isEqualTo("Backpack");
         assertThat(top.getParent().getId()).isEqualTo(bag.getId());
+    }
+
+    @Test
+    void 일차카테고리_조회_성공(){
+        category1 = categoryRepository.save(new Category("Clothes"));
+        category2 =  categoryRepository.save(new Category("Shoes"));
+        category3 = categoryRepository.save(new Category("Bag"));
+        category4 =  categoryRepository.save(new Category("Accessories"));
+
+        List<Category> categories = categoryRepository.foundParentCategory().orElseThrow();
+
+        Assertions.assertThat(categories.get(0).getName()).isEqualTo("Clothes");
+        Assertions.assertThat(categories.get(1).getName()).isEqualTo("Shoes");
+        Assertions.assertThat(categories.get(2).getName()).isEqualTo("Bag");
+        Assertions.assertThat(categories.get(3).getName()).isEqualTo("Accessories");
     }
 }
