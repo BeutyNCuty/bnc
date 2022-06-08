@@ -1,6 +1,5 @@
 package com.bnc.main.category.service;
 
-
 import com.bnc.main.category.domain.Category;
 import com.bnc.main.category.domain.CategoryRepository;
 import org.assertj.core.api.Assertions;
@@ -35,17 +34,17 @@ class DefaultCategoryServiceTest{
     
     @Test
     void 일차_카테고리생성_성공(){
-        ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("Clothes");
+        ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("top");
 
         Category parentsCategory = categoryService.createParentsCategory(clothes);
 
-        assertThat(parentsCategory.getName()).isEqualTo("Clothes");
+        assertThat(parentsCategory.getName()).isEqualTo("top");
         assertThat(parentsCategory.getParent()).isEqualTo(null);
     }
     
     @Test
     void 이차_카테고리생성_성공(){
-        ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("Clothes");
+        ParentsCategoryCreateRequest clothes = new ParentsCategoryCreateRequest("top");
 
         Category parentsCategory = categoryService.createParentsCategory(clothes);
 
