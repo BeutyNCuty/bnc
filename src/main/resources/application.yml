@@ -1,34 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://211.222.25.101:5432/ATteampro
-    username: ATproject3
-    password: at1234
-
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        format_sql: false
-      javax:
-        persistence:
-          validation:
-            mode: none
     show-sql: true
-
-  thymeleaf:
-    cache: false
-    check-template-location: true
-    prefix: classpath:/templates/
-    suffix: .html
-
-  devtools:
-    remote:
-      restart:
-        enabled: true
-    livereload:
-      enabled: true
-    restart:
-      poll-interval: 60s
-      quiet-period: 30s
+  flyway:
+    enabled: true
